@@ -27,5 +27,26 @@ export default StyleSheet.create({
         color: 'white',
         fontSize: 18,
         paddingHorizontal: 5
+    },
+    bottom_container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginRight: 5,
+        marginBottom: 5
+    },
+    button: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 5,
+        flexDirection: 'row'
+    },
+    text: {
+        color: Colors.purple,
+        fontSize: 12
+    },
+    count: {
+        color: Colors.purple,
+        fontSize: 12,
+        marginRight: 5
     }
 })

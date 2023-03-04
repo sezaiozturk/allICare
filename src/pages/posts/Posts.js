@@ -14,7 +14,7 @@ const Posts = () => {
 
     useEffect(() => {
         dataBase().ref().on('value', snapShot => {
-            const post = parseComment(snapShot.val());
+            const post = parseComment(snapShot.val() || {});
             setList(post);
         })
     }, [])
@@ -27,10 +27,14 @@ const Posts = () => {
             comment,
             name: mail.split('@')[0],
             date: (new Date).toISOString(),
+            dislike: 0
         }
         dataBase().ref().push(commentObject);
     }
-    const renderItem = ({ item }) => <MessageCard message={item} />
+    function handleDislike(item) {
+        dataBase().ref(item.id).update({ dislike: item.dislike + 1 })
+    }
+    const renderItem = ({ item }) => <MessageCard message={item} onPress={() => handleDislike(item)} />
 
     return (
         <SafeAreaView style={styles.container}>
