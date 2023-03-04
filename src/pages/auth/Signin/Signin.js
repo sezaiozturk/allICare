@@ -24,6 +24,7 @@ const Signin = ({ navigation }) => {
         }
         try {
             await auth().createUserWithEmailAndPassword(mail, password);
+            navigation.navigate('LoginPage');
         } catch (error) {
             showMessage({
                 message: authErrorMessageParser(error.code),
