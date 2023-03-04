@@ -1,9 +1,12 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, Alert } from 'react-native'
 import React from 'react'
 import Button from '../../../components/button'
 import Input from '../../../components/input/Input'
 import styles from './Signin.style'
 import { Formik } from 'formik'
+import auth from '@react-native-firebase/auth'
+import { showMessage } from "react-native-flash-message";
+import authErrorMessageParser from '../../../utils/authErrorMessageParser'
 
 const Signin = ({ navigation }) => {
     const initialValues = {
@@ -11,11 +14,24 @@ const Signin = ({ navigation }) => {
         password: '',
         rePassword: ''
     }
-    function handleSignin(values) {
-        console.log(values)
-
+    async function handleSignin({ mail, password, rePassword }) {
+        if (password !== rePassword) {
+            showMessage({
+                message: 'Passwords are different',
+                type: 'danger'
+            })
+            return;
+        }
+        try {
+            await auth().createUserWithEmailAndPassword(mail, password);
+        } catch (error) {
+            showMessage({
+                message: authErrorMessageParser(error.code),
+                type: 'danger'
+            })
+        }
     }
-    function handleBack(values) {
+    function handleBack() {
         navigation.goBack();
     }
     return (

@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import Login from './src/pages/auth/Login';
 import Signin from './src/pages/auth/Signin';
+import Post from './src/pages/posts/Posts'
+import FlashMessage, { showMessage } from "react-native-flash-message";
 
 const Stack = createStackNavigator();
 
@@ -21,7 +23,17 @@ export default App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name='AuthStack' component={AuthStack} />
+        <Stack.Screen
+          name='PostPage'
+          component={Post}
+          options={{
+            headerShown: true,
+            headerLeft: null,
+            title: 'ALL I CARE',
+            headerTintColor: 'purple'
+          }} />
       </Stack.Navigator>
+      <FlashMessage position="top" />
     </NavigationContainer>
   )
 }

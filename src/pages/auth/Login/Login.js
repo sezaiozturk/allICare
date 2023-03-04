@@ -1,9 +1,12 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, Alert } from 'react-native'
 import React from 'react'
 import Button from '../../../components/button'
 import Input from '../../../components/input/Input'
 import styles from './Login.style'
 import { Formik } from 'formik'
+import auth from '@react-native-firebase/auth'
+import { showMessage } from "react-native-flash-message";
+import authErrorMessageParser from '../../../utils/authErrorMessageParser'
 
 const Login = ({ navigation }) => {
     const initialValues = {
@@ -13,8 +16,16 @@ const Login = ({ navigation }) => {
     function handleSignin() {
         navigation.navigate('SigninPage');
     }
-    function handleLogin(values) {
-        console.log(values);
+    async function handleLogin({ mail, password }) {
+        try {
+            await auth().signInWithEmailAndPassword(mail, password);
+            navigation.navigate('PostPage');
+        } catch (error) {
+            showMessage({
+                message: authErrorMessageParser(error.code),
+                type: 'danger'
+            })
+        }
     }
     return (
         <SafeAreaView>

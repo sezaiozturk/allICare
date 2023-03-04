@@ -5,7 +5,12 @@ import styles from './Input.style'
 const Input = ({ placeHolder, onChange, value }) => {
     return (
         <View style={styles.container}>
-            <TextInput placeholder={placeHolder} onChangeText={onChange} value={value} style={styles.input} />
+            <TextInput
+                placeholder={placeHolder}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+                multiline />
         </View>
     )
 }
